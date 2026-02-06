@@ -58,6 +58,15 @@ int file_read(unsigned char **buf, long *len, const char *path) {
 	return 0;
 }
 
+int file_write(const char *path, unsigned char *buf, long len) {
+	FILE *fd = fopen(path, "w");
+	assert(fd);
+	long nwritten = fwrite(buf, 1, len, fd);
+	assert(nwritten == len);
+	fclose(fd);
+	return 0;
+}
+
 unsigned long xor(unsigned char *secret, long slen, unsigned char *data, long dlen) {
 	unsigned long checksum = 0;
 	for (unsigned long i = 0; i < dlen; i++) {
@@ -79,6 +88,7 @@ int main() {
 	//
 	printf("checksum %lx\n", checksum);
 	// not necessary, but it's a good habit to clean the mess.
+	assert(!file_write("xored.bin", data, dlen));
 	free(secret);
 	free(data);
 	return 0;

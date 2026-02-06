@@ -21,9 +21,11 @@ run() {
 	printf "####################\n"
 	printf "run Go version\n"
 	time ./xor_go
+	printf "output hash: $(sha256sum xored.bin)\n" 
 	printf "####################\n"
 	printf "run C version\n"
 	time ./xor_c
+	printf "output hash: $(sha256sum xored.bin)\n" 
 }
 
 ####################

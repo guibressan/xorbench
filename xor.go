@@ -37,6 +37,7 @@ func main() {
 	checksum := xor(secret, data)
 	elapsedPrint(start)
 	//
+	must(os.WriteFile("xored.bin", data, 0o644))
 	fmt.Printf("Checksum %x\n", checksum)
 }
 
